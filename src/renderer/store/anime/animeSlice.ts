@@ -7,6 +7,12 @@ import {
 } from '../../actions/anime/fetchAnimeStartReducer';
 import fetchAnimeService from '../../services/animeServices';
 import { AnimeType } from '../../types/AnimeType';
+import fetchAnimeListService from '../../services/animeListService';
+import {
+  fetchAnimeListFailureReducer,
+  fetchAnimeListStartReducer,
+  fetchAnimeListSuccessReducer,
+} from '../../actions/anime/fetchAnimeListReducer';
 
 export const fetchAnimeById = createAsyncThunk<
   { info: AnimeType }, // Payload que va renvoyer cette action lors qu'elle est réussie
@@ -25,6 +31,22 @@ export const fetchAnimeById = createAsyncThunk<
   }
 });
 
+export const fetchAnimeList = createAsyncThunk<
+  { list: AnimeType[] }, // Payload que va renvoyer cette action lors qu'elle est réussie
+  undefined,
+  { rejectValue: { error: string } }
+>('anime/fetchAnimeList', async (params, thunkAPI) => {
+  const { rejectWithValue, fulfillWithValue } = thunkAPI;
+  try {
+    const animeList = await fetchAnimeListService();
+    return fulfillWithValue({ list: animeList });
+  } catch (error) {
+    return rejectWithValue({
+      error: error instanceof Error ? error.message : 'error',
+    });
+  }
+});
+
 export const animeSlice = createSlice({
   name: 'anime',
   initialState,
@@ -32,14 +54,18 @@ export const animeSlice = createSlice({
     // No actions
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchAnimeById.pending, fetchAnimeStartReducer);
-    builder.addCase(fetchAnimeById.fulfilled, fetchAnimeSuccessReducer);
-    builder.addCase(fetchAnimeById.rejected, fetchAnimeFailureReducer);
+    // AnimeById
+    builder
+      .addCase(fetchAnimeById.pending, fetchAnimeStartReducer)
+      .addCase(fetchAnimeById.fulfilled, fetchAnimeSuccessReducer)
+      .addCase(fetchAnimeById.rejected, fetchAnimeFailureReducer);
+    // AnimeList
+    builder
+      .addCase(fetchAnimeList.pending, fetchAnimeListStartReducer)
+      .addCase(fetchAnimeList.fulfilled, fetchAnimeListSuccessReducer)
+      .addCase(fetchAnimeList.rejected, fetchAnimeListFailureReducer);
   },
 });
-
-// export const { increment, decrement, incrementByAmount, fetchAnimeStart } = animeSlice.actions;
-export const animeAction = animeSlice.actions;
 
 export default {
   animeReducers: animeSlice.reducer,

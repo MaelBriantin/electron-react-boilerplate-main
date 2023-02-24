@@ -1,0 +1,17 @@
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.appTitle {
+  padding: 0.25rem;
+  font-family: "Fira Code", monospace;
+  font-weight: bold;
+  color: darkorange;
+  font-size: 2rem;
+}

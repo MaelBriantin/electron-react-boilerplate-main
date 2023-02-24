@@ -8,12 +8,14 @@ export enum StatusType {
 }
 
 export type AnimeStateType = {
-  status: StatusType;
+  list: AnimeType[];
   info: AnimeType;
+  status: StatusType;
   error: string;
 };
 
 export const initialState = {
+  list: [],
   info: nullAnimeType,
   status: StatusType.start,
   error: '',

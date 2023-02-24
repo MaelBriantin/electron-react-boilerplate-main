@@ -1,0 +1,19 @@
+.animeList {
+  padding-top: 8vh;
+  padding-bottom: 8vh;
+  width: 80%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.animeElement {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: black 2px solid;
+  height: 22rem;
+}

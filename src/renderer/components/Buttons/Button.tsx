@@ -1,10 +1,4 @@
 import './Button.scss';
-import { useContext } from 'react';
-import { UserContext } from '../Context/UserContext';
-import { animeSlice } from '../../store/anime/animeSlice';
-import api from '../../services/animeServices';
-import fetchAnime from '../../services/animeServices';
-import { fetchAnimeSuccessReducer } from '../../actions/anime/fetchAnimeStartReducer';
 import fetchAnimeService from '../../services/animeServices';
 
 enum Icons {
@@ -17,7 +11,6 @@ type Props = {
   icon: keyof typeof Icons;
 };
 const Button = (props: Props) => {
-  const { setName } = useContext(UserContext);
   const { text, icon } = props;
   return (
     <button

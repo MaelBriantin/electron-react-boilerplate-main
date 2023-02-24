@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/store';
-import { fetchAnimeById } from '../../store/anime/animeSlice';
-import { selectAnimeInfo } from '../../selector/anime/selectAnime';
+import { fetchAnimeById, fetchAnimeList } from '../../store/anime/animeSlice';
+import { selectAnime, selectAnimeInfo } from '../../selector/anime/selectAnime';
 
 const AnimeDetails = () => {
   const dispatch = useAppDispatch();
